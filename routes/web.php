@@ -15,24 +15,5 @@ use App\Task;
 */
 
 Route::get('/', ['uses' => 'TaskController@index']);
-
-Route::post('/task', function(Request $request) {
-    $validator = Validator::make(
-       $request->all(),
-       [
-           'name' => 'required|max:255',
-       ]
-    );
-    if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $taskToSave = new Task;
-    $taskToSave->name = $request->get('name');
-    $taskToSave->save();
-    return redirect('/');
-});
-
+Route::post('/task', ['uses' => 'TaskController@create']);
 Route::delete('/task/{task}', ['uses' => 'TaskController@remove']);
