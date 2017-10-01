@@ -14,12 +14,7 @@ use App\Task;
 |
 */
 
-Route::get('/', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();
-    return view('task.home', [
-        'tasks' => $tasks,
-    ]);
-});
+Route::get('/', ['uses' => 'TaskController@index']);
 
 Route::post('/task', function(Request $request) {
     $validator = Validator::make(
