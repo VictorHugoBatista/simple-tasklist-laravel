@@ -23,7 +23,6 @@ Route::post('/task', function(Request $request) {
            'name' => 'required|max:255',
        ]
     );
-
     if ($validator->fails()) {
         return redirect('/')
             ->withInput()
@@ -33,12 +32,7 @@ Route::post('/task', function(Request $request) {
     $taskToSave = new Task;
     $taskToSave->name = $request->get('name');
     $taskToSave->save();
-
     return redirect('/');
 });
 
-Route::delete('/task/{task}', function(Task $task) {
-    $task->delete();
-
-    return redirect('/');
-});
+Route::delete('/task/{task}', ['uses' => 'TaskController@remove']);

@@ -14,4 +14,10 @@ class TaskController extends Controller
             'tasks' => $tasks,
         ]);
     }
+
+    public function remove(Task $task)
+    {
+        $task->delete();
+        return redirect('/');
+    }
 }
